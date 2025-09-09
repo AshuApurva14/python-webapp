@@ -28,5 +28,13 @@ jobs:
       - name: ruff-action
         uses: astral-sh/ruff-action@v3.5.1
 
+      - name: fix any linting issue
+        run : ruff check --fix
+
+      - name: Fix any format issue
+        run: ruff format
+
+        
+
       
           

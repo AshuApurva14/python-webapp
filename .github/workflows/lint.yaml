@@ -1,7 +1,13 @@
-name: Build, test and deploy Python webapp
+name: Lint python code
 
 
 on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:

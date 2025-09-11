@@ -97,7 +97,7 @@ jobs:
                 pip install -r requirements.txt
 
             - name: test python code
-              run : pytest test/
+              run : pytest tests/
 
     
     

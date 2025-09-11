@@ -2,12 +2,9 @@ name: Lint python code
 
 
 on:
-  pull_request:
-    branches:
-      - master
-  push:
-    branches:
-      - master
+  
+  workflow_call:
+
   workflow_dispatch:
 
 permissions:

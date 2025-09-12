@@ -186,6 +186,7 @@ jobs:
       env:
         DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        
 
 
 
@@ -203,12 +204,18 @@ jobs:
             password: ${{ env.DOCKER_HUB_TOKEN }}
 
 
-        
-        - name: Deploy the Application in GitHub Runner
+        - name: Set image tag for deployment
+          env:
+            IMG_TAG: sha-${{ github.sha }}
+            DOCKER_REGISTRY: ${{ env.DOCKER_HUB_USERNAME }}/python-apps
+
           run: |
 
-           
-           docker run -dp 5000:5000 --name python-app ${{ needs.docker_build_and_push.outputs.image_tag }}
+            echo "New tag is set for deployment: ${{ env.IMG_TAG }}"
+
+            echo "Deploy the application"
+            
+            docker run -dp 5000:5000 --name python-app ${{ env.DOCKER_REGISTRY }}:${{ env.IMG_TAG }} 
 
         
          # Step 4: Test app is running
@@ -216,6 +223,7 @@ jobs:
           run: |
             sleep 5
             curl http://localhost:5000/ || exit 1
+
         
 
           

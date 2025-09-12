@@ -1,5 +1,5 @@
 import pytest
-from app import app
+from src.app import app
 
 # filepath: /workspaces/python-webapp/test_app.py
 

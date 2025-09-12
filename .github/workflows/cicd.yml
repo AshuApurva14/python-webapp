@@ -179,11 +179,45 @@ jobs:
           run: echo "image_tag=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
 
 
-   
-      
+    deploy_app:
+      runs-on: [ubuntu-latest]
+      needs: docker_build_and_push
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
-      
-      
+
+      env:
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+
+
+      steps:
+
+        - name: Checkout Repository
+          uses: actions/checkout@v4.2.2
+
+
+        - name: Docker Login
+          id: docker-login
+          uses: docker/login-action@v3
+          with:
+            username: ${{ env.DOCKER_HUB_USERNAME }}
+            password: ${{ env.DOCKER_HUB_TOKEN }}
+
+
+        
+        - name: Deploy the Application in GitHub Runner
+          run: |
+
+           docker run -dp 5000:5000 --name python-app ${{ needs.docker_build_and_push.outputs.image_tag }}
+
+        
+         # Step 4: Test app is running
+        - name: Curl health endpoint
+          run: |
+            sleep 5
+            curl http://localhost:5000/ || exit 1
+        
 
           
 

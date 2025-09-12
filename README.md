@@ -12,3 +12,11 @@ GitHub has a few special contexts that you can access as part of your workflows.
 
 ## Use of pytest for Automated testing
 
+created a test.py file for unit test, here I faced one issue related to module not found hence cicd pipeline failed.
+
+tests/test_app.py:2: in <module>
+    from app import app
+   ModuleNotFoundError: No module named 'app'
+
+
+

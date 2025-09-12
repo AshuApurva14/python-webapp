@@ -205,6 +205,7 @@ jobs:
 
 
         - name: Set image tag for deployment
+          id: deployment_status
           env:
             IMG_TAG: sha-${{ github.sha }}
             DOCKER_REGISTRY: ${{ env.DOCKER_HUB_USERNAME }}/python-apps
@@ -226,9 +227,28 @@ jobs:
 
         
 
-          
+        - name: Send deployment status email
+          uses: dawidd6/action-send-mail@v3
+          with:
+              server_address: smtp.gmail.com
+              server_port: 465
+              username: ${{ secrets.EMAIL_USERNAME }}
+              password: ${{ secrets.EMAIL_PASSWORD }}
+              subject: "🚀 Deployment Status: ${{ steps.deployment_status.conclusion }}"
+              to: "devopssre5@gmail.com"
+              from: GitHub Actions
+              body: |
+                Hello,
+                
+                Deployment for *${{ github.repository }}* on commit ${{ github.sha }} has finished.
+                Status: **${{ job.status }}**
+
+                Application is running successfully!.
+
+                Triggered by: ${{ github.actor }}
 
 
+        
     
 
     

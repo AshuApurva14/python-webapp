@@ -27,4 +27,7 @@ You can subscribe to notifications about workflow runs that you trigger.
 If you enable email or web notifications for GitHub Actions, you'll receive a notification when any workflow runs that you've triggered have completed. The notification will include the workflow run's status (including successful, failed, neutral, and canceled runs). You can also choose to receive a notification only when a workflow run has failed. For more information about enabling or disabling notifications, see About notifications.
 
 
+ - Email notification gets failed 
+ - Due to Google policies Updates
 
+ 

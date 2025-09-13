@@ -225,7 +225,6 @@ jobs:
             sleep 5
             curl http://localhost:5000/ || exit 1
 
-        
 
         - name: Send deployment status email
           uses: dawidd6/action-send-mail@v3
